@@ -1,17 +1,29 @@
+/*------------------------------------------------------------------*/
+/* symtablelist.c                                                   */
+/* Author: Kevin Tran                                               */
+/*------------------------------------------------------------------*/
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include "symtable.h"
 /*------------------------------------------------------------------*/
+/* Each item/value and name/key is stored in a SymTableNode. 
+   SymTableNodes are linked to form a linked list */
 struct SymTableNode {
+    /* the Item/Value in the symbol table*/
     const void *pvItem;
+    /* the Name/Key in the symbol table*/
     const char *pcName;
+    /* the next node in the linked list*/
     struct SymTableNode *psNextNode;
 };
 /*------------------------------------------------------------------*/
+/* A SymTable is a structure that points to teh first SymTableNode 
+   and also includes its length */
 struct SymTable {
     /* address of first SymTableNode*/
     struct SymTableNode *psFirstNode;
+    /* number of nodes in symbol table*/
     size_t SymTableLength;
 };
 /*------------------------------------------------------------------*/
@@ -41,6 +53,7 @@ void SymTable_free(SymTable_T oSymTable) {
 }
 /*------------------------------------------------------------------*/
 size_t SymTable_getLength(SymTable_T oSymTable) {
+    assert(oSymTable != NULL);
     return oSymTable->SymTableLength;
 }
 /*------------------------------------------------------------------*/
@@ -53,6 +66,7 @@ int SymTable_put(SymTable_T oSymTable,
         char *pcKeyCopy;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
+        assert(pvValue != NULL);
         pcKeyCopy = malloc(strlen(pcKey) + 1);
         if (pcKeyCopy == NULL) {
             return 0;
@@ -99,6 +113,7 @@ void *SymTable_replace(SymTable_T oSymTable,
     void *oldpvValue;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
+    assert(pvValue != NULL);
     for (psCurrentNode = oSymTable->psFirstNode; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
@@ -178,6 +193,7 @@ void SymTable_map(SymTable_T oSymTable,
         struct SymTableNode *psCurrentNode;
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
+        assert(pvExtra != NULL);
         for (psCurrentNode = oSymTable->psFirstNode; psCurrentNode !=
         NULL; psCurrentNode = psCurrentNode->psNextNode) {
             (*pfApply) ((const char*) psCurrentNode->pcName, (void*) 
