@@ -48,7 +48,8 @@ int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) {
         struct SymTableNode *psNewNode;
         struct SymTableNode *psCurrentNode;
-        struct SymTableNode *psPreviousNode;
+        /* set to NULL to silence splint warning */
+        struct SymTableNode *psPreviousNode = NULL;
         char *pcKeyCopy;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
