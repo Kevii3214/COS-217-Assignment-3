@@ -49,10 +49,10 @@ int SymTable_put(SymTable_T oSymTable,
         struct SymTableNode *psNewNode;
         struct SymTableNode *psCurrentNode;
         struct SymTableNode *psPreviousNode;
-        const char *pcKeyCopy;
+        char *pcKeyCopy;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
-        pcKeyCopy = (const char*) malloc(strlen(pcKey) + 1);
+        pcKeyCopy = malloc(strlen(pcKey) + 1);
         if (pcKeyCopy == NULL) {
             return 0;
         }
