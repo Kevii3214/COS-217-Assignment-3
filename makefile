@@ -17,7 +17,7 @@ testsymtablelist: testsymtable.o symtablelist.o
 	$(CC) $(CFLAGS) testsymtable.o symtablelist.o -o testsymtablelist
 
 testsymtablehash: testsymtable.o symtablehash.o
-	$(CC) $(CFLAGS) testsymtable.o symtablehash.o -o test symtablehash
+	$(CC) $(CFLAGS) testsymtable.o symtablehash.o -o testsymtablehash
 
 testsymtable.o: testsymtable.c symtable.h
 	$(CC) $(CFLAGS) -c testsymtable.c
