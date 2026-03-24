@@ -111,7 +111,6 @@ void *SymTable_replace(SymTable_T oSymTable,
     void *oldpvValue;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
-    assert(pvValue != NULL);
     for (psCurrentNode = oSymTable->psFirstNode; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
@@ -191,7 +190,6 @@ void SymTable_map(SymTable_T oSymTable,
         struct SymTableNode *psCurrentNode;
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
-        assert(pvExtra != NULL);
         for (psCurrentNode = oSymTable->psFirstNode; psCurrentNode !=
         NULL; psCurrentNode = psCurrentNode->psNextNode) {
             (*pfApply) ((const char*) psCurrentNode->pcName, (void*) 
