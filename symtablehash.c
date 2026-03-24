@@ -100,6 +100,8 @@ static void SymTable_expand(SymTable_T oSymTable,
     size_t oldBucketCount) {
     struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNextNode;
+    struct SymTableNode *psCurrentTempNode;
+    struct SymTableNode *psPreviousTempNode;
     size_t newHash;
     size_t hash;
     struct SymTableNode **tempsymTable = calloc(
@@ -118,14 +120,27 @@ static void SymTable_expand(SymTable_T oSymTable,
             psNextNode = psCurrentNode->psNextNode;
             newHash = SymTable_hash(psCurrentNode->pcName,
                 oSymTable->bucketCount);
-            /* insert at head of new bucket's chain */
-            psCurrentNode->psNextNode = tempsymTable[newHash];
-            tempsymTable[newHash] = psCurrentNode;
+            psCurrentNode->psNextNode = NULL;
+            /* if first in the list */
+            if (tempsymTable[newHash] == NULL) {
+                tempsymTable[newHash] = psCurrentNode;
+            }
+            else {
+                /* iterate to last node */
+                for (psCurrentTempNode = tempsymTable[newHash];
+                     psCurrentTempNode != NULL;
+                     psCurrentTempNode = psCurrentTempNode->
+                     psNextNode) {
+                    psPreviousTempNode = psCurrentTempNode;
+                }
+                psPreviousTempNode->psNextNode = psCurrentNode;
+            }
         }
     }
     free(oSymTable->symTable);
     oSymTable->symTable = tempsymTable;
 }
+/*------------------------------------------------------------------*/
 int SymTable_put(SymTable_T oSymTable,
     const char *pcKey, const void *pvValue) {
         struct SymTableNode *psNewNode;

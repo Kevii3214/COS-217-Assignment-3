@@ -24,11 +24,12 @@ void SymTable_free(SymTable_T oSymTable);
 size_t SymTable_getLength(SymTable_T oSymTable);
 /*..................................................................*/
 
-/* returns 1 if oSymTable contains binding with key pcKey and adds 
-   binding to oSymTable with key pcKey and value pvValue.
-   returns 0 if oSymTable does not contain binding with key pcKey or 
-   insufficient memory is available and leaves oSymTable unchanged.
-*/
+/* Returns 1 if oSymTable does not contain a binding with 
+   key pcKey and adds a new binding to oSymTable consisting of key 
+   pcKey and value pvValue.
+   Returns 0 if oSymTable already contains a binding with 
+   key pcKey or if insufficient memory is available, and leaves 
+   oSymTable unchanged. */
 int SymTable_put(SymTable_T oSymTable, 
    const char *pcKey, const void *pvValue);
 /*..................................................................*/
