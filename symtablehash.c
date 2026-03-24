@@ -97,8 +97,7 @@ int SymTable_put(SymTable_T oSymTable,
         size_t bucketCounts[] = {509, 1021, 2039, 4093, 8191, 16381, 
             32749, 65521};
         char *pcKeyCopy;
-        size_t hash = SymTable_hash(pcKeyCopy, oSymTable->
-            bucketCount);
+        size_t hash;
         assert(oSymTable != NULL);
         assert(pcKey != NULL);
         /* create defensive copy */
@@ -177,6 +176,8 @@ int SymTable_put(SymTable_T oSymTable,
                     
                 }
         }
+        hash = SymTable_hash(pcKeyCopy, oSymTable->
+            bucketCount);
         for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode 
             != NULL; psCurrentNode = psCurrentNode->psNextNode) {
         /* traverses symboltable and sets psCurrentNode to last node*/
@@ -238,9 +239,9 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNextNode;
+    size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
-    size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
@@ -257,9 +258,9 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     /* for the first node corner case */
     struct SymTableNode *psPrevNode = NULL;
     void *oldpvValue;
+    size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
-    size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
@@ -289,14 +290,14 @@ void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
     const void *pvExtra) {
     struct SymTableNode *psCurrentNode;
-        assert(oSymTable != NULL);
-        assert(pfApply != NULL);
-        size_t hash = 0;
-        for (hash = 0; hash < oSymTable->bucketCount; hash++) 
-        {
-            for (psCurrentNode = oSymTable->symTable[hash]; 
-                psCurrentNode != NULL; psCurrentNode = 
-                psCurrentNode->psNextNode) {
+    size_t hash = 0;
+    assert(oSymTable != NULL);
+    assert(pfApply != NULL);
+    for (hash = 0; hash < oSymTable->bucketCount; hash++) 
+    {
+        for (psCurrentNode = oSymTable->symTable[hash]; 
+            psCurrentNode != NULL; psCurrentNode = 
+            psCurrentNode->psNextNode) {
             (*pfApply) ((const char*) psCurrentNode->pcName, (void*) 
             psCurrentNode->pvItem, 
                 (void*) pvExtra);
