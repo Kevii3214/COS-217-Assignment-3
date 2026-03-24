@@ -65,7 +65,8 @@ void SymTable_free(SymTable_T oSymTable) {
     struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNextNode;
     assert(oSymTable != NULL);
-    for (size_t hash = 0; hash < oSymTable->bucketCount; hash++) {
+    size_t hash = 0;
+    for (hash = 0; hash < oSymTable->bucketCount; hash++) {
         for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode
             != NULL; psCurrentNode = psNextNode) {
                /* free the key's defensive copy and node */
@@ -116,7 +117,8 @@ int SymTable_put(SymTable_T oSymTable,
             size_t oldBucketCount = oSymTable->bucketCount;
             /* sets bucketCount to the next value in the bucketCount
                array unless it is the last index */    
-               for (int i = 0; i < 7; i++) {
+               int i = 0;
+               for (i = 0; i < 7; i++) {
                     if (oSymTable->bucketCount == bucketCounts[i]) {
                         oSymTable->bucketCount = bucketCounts[i+1];
                         break;
@@ -136,7 +138,8 @@ int SymTable_put(SymTable_T oSymTable,
                 struct SymTableNode *psPreviousTempNode;
                 size_t newHash;   
                 if (tempsymTable != NULL) {
-                    for (size_t hash = 0; hash < oldBucketCount;
+                    size_t hash = 0;
+                    for (hash = 0; hash < oldBucketCount;
                          hash++) {
                         for (psCurrentNode = oSymTable->
                             symTable[hash]; 
@@ -287,7 +290,8 @@ void SymTable_map(SymTable_T oSymTable,
     struct SymTableNode *psCurrentNode;
         assert(oSymTable != NULL);
         assert(pfApply != NULL);
-        for (size_t hash = 0; hash < oSymTable->bucketCount; hash++) 
+        size_t hash = 0;
+        for (hash = 0; hash < oSymTable->bucketCount; hash++) 
         {
             for (psCurrentNode = oSymTable->symTable[hash]; 
                 psCurrentNode != NULL; psCurrentNode = 
