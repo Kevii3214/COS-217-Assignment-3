@@ -101,7 +101,8 @@ static void SymTable_expand(SymTable_T oSymTable,
     struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNextNode;
     struct SymTableNode *psCurrentTempNode;
-    struct SymTableNode *psPreviousTempNode;
+    /* set to NULL to silence splint warning */
+    struct SymTableNode *psPreviousTempNode = NULL;
     size_t newHash;
     size_t hash;
     struct SymTableNode **tempsymTable = calloc(
