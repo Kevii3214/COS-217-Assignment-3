@@ -91,7 +91,8 @@ int SymTable_put(SymTable_T oSymTable,
         struct SymTableNode *psCurrentNode;
         struct SymTableNode *psNextNode;
         struct SymTableNode *psCurrentTempNode; 
-        struct SymTableNode *psPreviousTempNode;
+        /* set to NULL to silence splint warning */
+        struct SymTableNode *psPreviousTempNode = NULL;
         /* set to NULL to silence splint warning */
         struct SymTableNode *psPreviousNode = NULL;
         size_t bucketCounts[] = {509, 1021, 2039, 4093, 8191, 16381, 
