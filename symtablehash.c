@@ -197,6 +197,27 @@ int SymTable_put(SymTable_T oSymTable,
         return 1;
     }
 /*------------------------------------------------------------------*/
+void *SymTable_replace(SymTable_T oSymTable,
+    const char *pcKey, const void *pvValue) {
+    struct SymTableNode *psCurrentNode;
+    struct SymTableNode *psNextNode;
+    void *oldpvValue;
+    size_t hash;
+    assert(oSymTable != NULL);
+    assert(pcKey != NULL);
+    hash = SymTable_hash(pcKey, oSymTable->bucketCount);
+    for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
+         NULL; psCurrentNode = psNextNode) {
+        psNextNode = psCurrentNode->psNextNode;
+        if (strcmp(pcKey, psCurrentNode->pcName) == 0) {
+            oldpvValue = (void*) psCurrentNode->pvItem;
+            psCurrentNode->pvItem = pvValue;
+            return oldpvValue;
+        }
+    }
+    return NULL;
+}
+/*------------------------------------------------------------------*/
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
     struct SymTableNode *psCurrentNode;
     size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
@@ -260,6 +281,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     }
     return NULL;
 }
+
 /*------------------------------------------------------------------*/
 void SymTable_map(SymTable_T oSymTable,
     void (*pfApply)(const char *pcKey, void *pvValue, void *pvExtra),
