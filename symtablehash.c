@@ -88,6 +88,7 @@ void SymTable_free(SymTable_T oSymTable) {
 }
 /*------------------------------------------------------------------*/
 size_t SymTable_getLength(SymTable_T oSymTable) {
+    /* should be constant time */
     assert(oSymTable != NULL);
     return oSymTable->SymTableLength;
 }
@@ -178,11 +179,11 @@ int SymTable_put(SymTable_T oSymTable,
         psNewNode->pcName = pcKeyCopy;
         psNewNode->psNextNode = NULL;
         /* comment out if no expansion wanted */
-        /*
+        
         if (oSymTable->SymTableLength > oSymTable->bucketCount) {
             size_t oldBucketCount = oSymTable->bucketCount;
             /* sets bucketCount to the next value in the bucketCount
-               array unless it is the last index */ /*
+               array unless it is the last index */ 
             for (i = 0; i < BUCKET_COUNT_SIZE - 1; i++) {
                 if (oSymTable->bucketCount == bucketCounts[i]) {
                     oSymTable->bucketCount = bucketCounts[i + 1];
@@ -190,12 +191,11 @@ int SymTable_put(SymTable_T oSymTable,
                 }
             }
             /* just for efficiency, won't run if bucket count
-               was 65521 before and didn't change */ /*
+               was 65521 before and didn't change */ 
             if (oSymTable->bucketCount != oldBucketCount) {
                 SymTable_expand(oSymTable, oldBucketCount);
             }
         }
-        */
         hash = SymTable_hash(pcKeyCopy, oSymTable->bucketCount);
         for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode
             != NULL; psCurrentNode = psCurrentNode->psNextNode) {
@@ -234,6 +234,7 @@ void *SymTable_replace(SymTable_T oSymTable,
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
+        /* if keys match, swap the item and return old value*/
         if (strcmp(pcKey, psCurrentNode->pcName) == 0) {
             oldpvValue = (void*) psCurrentNode->pvItem;
             psCurrentNode->pvItem = pvValue;
@@ -250,6 +251,7 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
     assert(pcKey != NULL);
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psCurrentNode->psNextNode) {
+            /* if keys match, get the item and return 1*/
         if (strcmp(pcKey, psCurrentNode->pcName) == 0) {
             return 1;
         }
@@ -266,6 +268,7 @@ void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
+        /* if keys match, get the item and return item*/
         if (strcmp(pcKey, psCurrentNode->pcName) == 0) {
             return (void*) psCurrentNode->pvItem;
         }
@@ -285,6 +288,7 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
+        /* if keys match, remove the node and return old value*/
         if (strcmp(pcKey, psCurrentNode->pcName) == 0) {
             oldpvValue = (void*) psCurrentNode->pvItem;
             if (psPrevNode == NULL) {
@@ -315,6 +319,7 @@ void SymTable_map(SymTable_T oSymTable,
     size_t hash = 0;
     assert(oSymTable != NULL);
     assert(pfApply != NULL);
+    /* applies function to all nodes */
     for (hash = 0; hash < oSymTable->bucketCount; hash++) 
     {
         for (psCurrentNode = oSymTable->symTable[hash]; 
