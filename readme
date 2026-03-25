@@ -81,19 +81,19 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
-symtablelist.c: line 60: medium priority:
+symtablelist.c: line 61: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
 I disagree because pvValue should be able to be NULL
 it is also a test case
 
-symtablelist.c: line 109: medium priority:
+symtablelist.c: line 110: medium priority:
 Do you want to validate 'pvValue' through an assert?
 
 I disagree because pvValue should be able to be NULL
 it is also a test case
 
-symtablelist.c: line 194: medium priority:
+symtablelist.c: line 195: medium priority:
 Do you want to validate 'pvExtra' through an assert?
 I disagree because pvExtra should be able to be NULL
 it is an extra parameter of a different function which we do not know
@@ -127,7 +127,7 @@ Do you want to validate 'pvValue' through an assert?
 I disagree because pvValue should be able to be NULL
 it is also a test case
 
-symtablehash.c: line 317: medium priority:
+symtablehash.c: line 320: medium priority:
 Do you want to validate 'pvExtra' through an assert?
 
 I disagree because pvExtra should be able to be NULL
