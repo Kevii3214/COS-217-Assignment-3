@@ -246,9 +246,10 @@ void *SymTable_replace(SymTable_T oSymTable,
 /*------------------------------------------------------------------*/
 int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
     struct SymTableNode *psCurrentNode;
-    size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
+    size_t hash;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
+    hash = SymTable_hash(pcKey, oSymTable->bucketCount);
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psCurrentNode->psNextNode) {
             /* if keys match, get the item and return 1*/
@@ -262,9 +263,10 @@ int SymTable_contains(SymTable_T oSymTable, const char *pcKey) {
 void *SymTable_get(SymTable_T oSymTable, const char *pcKey) {
     struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNextNode;
-    size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
+    size_t hash;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
+    hash = SymTable_hash(pcKey, oSymTable->bucketCount);
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;
@@ -282,9 +284,10 @@ void *SymTable_remove(SymTable_T oSymTable, const char *pcKey) {
     /* for the first node corner case */
     struct SymTableNode *psPrevNode = NULL;
     void *oldpvValue;
-    size_t hash = SymTable_hash(pcKey, oSymTable->bucketCount);
+    size_t hash;
     assert(oSymTable != NULL);
     assert(pcKey != NULL);
+    hash = SymTable_hash(pcKey, oSymTable->bucketCount);
     for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode !=
          NULL; psCurrentNode = psNextNode) {
         psNextNode = psCurrentNode->psNextNode;

@@ -40,10 +40,11 @@ SymTable_T SymTable_new(void) {
 /*------------------------------------------------------------------*/
 void SymTable_free(SymTable_T oSymTable) {
     struct SymTableNode *psCurrentNode;
+    struct SymTableNode *psNextNode;
     assert(oSymTable != NULL);
     for (psCurrentNode = oSymTable->psFirstNode; psCurrentNode !=
-         NULL; psCurrentNode = psCurrentNode->psNextNode) {
-        /* free the key's defensive copy and node */
+         NULL; psCurrentNode = psNextNode) {
+        psNextNode = psCurrentNode->psNextNode;
         free((char*)psCurrentNode->pcName);
         free(psCurrentNode);
     }
