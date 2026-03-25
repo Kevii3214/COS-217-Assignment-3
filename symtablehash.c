@@ -92,6 +92,18 @@ size_t SymTable_getLength(SymTable_T oSymTable) {
     return oSymTable->SymTableLength;
 }
 /*------------------------------------------------------------------*/
+/* Appends psNewNode to the end of the linked list starting at 
+   psHead. psHead must not be NULL. */
+/* I made this because of CritTer warning*/
+static void SymTable_appendNode(struct SymTableNode *psHead,
+    struct SymTableNode *psNewNode) {
+    struct SymTableNode *psCurrentNode;
+    for (psCurrentNode = psHead; psCurrentNode->psNextNode != NULL;
+         psCurrentNode = psCurrentNode->psNextNode) {
+    }
+    psCurrentNode->psNextNode = psNewNode;
+}
+/*------------------------------------------------------------------*/
 /* Expands the hash table to the new bucket count stored in
    oSymTable->bucketCount. Rehashes all existing bindings into the
    new array. If memory allocation fails, restores bucketCount to
@@ -100,9 +112,6 @@ static void SymTable_expand(SymTable_T oSymTable,
     size_t oldBucketCount) {
     struct SymTableNode *psCurrentNode;
     struct SymTableNode *psNextNode;
-    struct SymTableNode *psCurrentTempNode;
-    /* set to NULL to silence splint warning */
-    struct SymTableNode *psPreviousTempNode = NULL;
     size_t newHash;
     size_t hash;
     struct SymTableNode **tempsymTable = calloc(
@@ -127,14 +136,9 @@ static void SymTable_expand(SymTable_T oSymTable,
                 tempsymTable[newHash] = psCurrentNode;
             }
             else {
-                /* iterate to last node */
-                for (psCurrentTempNode = tempsymTable[newHash];
-                     psCurrentTempNode != NULL;
-                     psCurrentTempNode = psCurrentTempNode->
-                     psNextNode) {
-                    psPreviousTempNode = psCurrentTempNode;
-                }
-                psPreviousTempNode->psNextNode = psCurrentNode;
+                /* append to end of bucket's chain */
+                SymTable_appendNode(tempsymTable[newHash],
+                    psCurrentNode);
             }
         }
     }
