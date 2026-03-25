@@ -3,7 +3,7 @@ Assignment 3 readme File
 ------------------------------------------------------------------------
 What is your name?
 
-
+Kevin Tran
 
 ------------------------------------------------------------------------
 What authorized sources of information did you use to complete the
@@ -12,8 +12,13 @@ in the "Policies" web page (also available on armlab in the file
 ~cos217/AuthorizedSourcesList ) to this section of the readme file,
 and edit it as appropriate.
 
-
-
+COS 217 lecture materials.
+COS 217 precept materials.
+COS 217 website.
+COS 217 textbooks.
+The man pages on the armlab cluster.
+COS 217 staff in private meeting.
+COS 217 staff and/or current students on Ed.
 ------------------------------------------------------------------------
 What unauthorized sources of information did you use to complete the
 assignment? List any unauthorized sources of information that you used
@@ -26,7 +31,7 @@ interaction, may additionally require the interaction being reported
 to the Committee on Discipline. Write "None" if you used no
 unauthorized sources of information.
 
-
+None
 
 ------------------------------------------------------------------------
 In fulfillment of the requirement from section 2.4.3 of the Academic
@@ -36,7 +41,7 @@ enter your name in the space below the following affirmation:
 This paper represents my own work in accordance with University
 regulations.
 
-
+Kevin Tran
 
 ------------------------------------------------------------------------
 In fulfillment of the requirement from section 2.4.6 of the Academic
@@ -44,19 +49,24 @@ Regulations in Princeton's Rights, Rules, Responsibilities guide,
 and the COS 217 Generative AI policy, disclose and describe how you
 used AI in completing this assignment:
 
-
+N/A
 
 ------------------------------------------------------------------------
 What is your assessment of the assignment? Was it helpful? Was it fun?
 
-
+I liked the assignment, it was helpful with using precept knowledge 
+in practice.
 
 ------------------------------------------------------------------------
 (optional) What information can you provide about your submission that
 will help your grader to grade it in the most favorable light? In
 particular, what bugs are in your submission?
 
+I ran the 50000 test on the linked list implementation twice and it
+gave me Killed both times
 
+Also, I had to create 2 helper functions for hash implementatin of
+SymTable_put because of critTer warnings
 
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablelist.c, and what are your
@@ -64,7 +74,7 @@ disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
 
-
+None
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablelist.c, and what are your
@@ -72,6 +82,24 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
+symtablelist.c: line 60: medium priority:
+Do you want to validate 'pvValue' through an assert?
+
+I disagree because pvValue should be able to be NULL
+it is also a test case
+
+symtablelist.c: line 109: medium priority:
+Do you want to validate 'pvValue' through an assert?
+
+I disagree because pvValue should be able to be NULL
+it is also a test case
+
+symtablelist.c: line 194: medium priority:
+Do you want to validate 'pvExtra' through an assert?
+I disagree because pvExtra should be able to be NULL
+it is an extra parameter of a different function which we do not know
+of so it should have its own null validation of parameters
+Also, it wasn't a test case
 
 
 ------------------------------------------------------------------------
@@ -80,7 +108,7 @@ disagreements with them? Copy the splint warnings here, and express your
 disagreement after each warning. If there are no warnings, then write
 "None."
 
-
+None
 
 ------------------------------------------------------------------------
 What warnings does critTer generate on symtablehash.c, and what are your
@@ -88,6 +116,25 @@ disagreements with them? Copy the critTer warnings here, and express
 your disagreement after each warning. If there are no warnings, then
 write "None."
 
+symtablehash.c: line 153: medium priority:
+Do you want to validate 'pvValue' through an assert?
+
+I disagree because pvValue should be able to be NULL
+it is also a test case
+
+symtablehash.c: line 226: medium priority:
+Do you want to validate 'pvValue' through an assert?
+
+I disagree because pvValue should be able to be NULL
+it is also a test case
+
+symtablehash.c: line 317: medium priority:
+Do you want to validate 'pvExtra' through an assert?
+
+I disagree because pvExtra should be able to be NULL
+it is an extra parameter of a different function which we do not know
+of so it should have its own null validation of parameters
+Also, it wasn't a test case
 
 
 ------------------------------------------------------------------------
@@ -97,22 +144,23 @@ implementation, (2) your non-expanding hash table implementation, and
 (3) your expanding hash table implementation? Fill in the blanks.
 
 The linked list implementation with:
--- 50 bindings consumed ________ seconds.
--- 500 bindings consumed ________ seconds.
--- 5000 bindings consumed ________ seconds.
--- 50000 bindings consumed ________ seconds.
--- 500000 bindings consumed ________ seconds.
+-- 50 bindings consumed 0.000000 seconds.
+-- 500 bindings consumed 0.000000 seconds.
+-- 5000 bindings consumed 0.154553 seconds.
+-- 50000 bindings consumed 23.378892 seconds.
+-- 500000 bindings consumed Killed seconds.
 
 The non-expanding hash table implementation with:
--- 50 bindings consumed ________ seconds.
--- 500 bindings consumed ________ seconds.
--- 5000 bindings consumed ________ seconds.
--- 50000 bindings consumed ________ seconds.
--- 500000 bindings consumed ________ seconds.
+-- 50 bindings consumed 0.000000 seconds.
+-- 500 bindings consumed 0.000000 seconds.
+-- 5000 bindings consumed 0.000000 seconds.
+-- 50000 bindings consumed 0.153311 seconds.
+-- 500000 bindings consumed 29.917984 seconds.
 
 The expanding hash table implementation with:
--- 50 bindings consumed ________ seconds.
--- 500 bindings consumed ________ seconds.
--- 5000 bindings consumed ________ seconds.
--- 50000 bindings consumed ________ seconds.
--- 500000 bindings consumed ________ seconds.
+-- 50 bindings consumed 0.000000 seconds.
+-- 500 bindings consumed 0.000000 seconds.
+-- 5000 bindings consumed 0.000000 seconds.
+-- 50000 bindings consumed 0.035740 seconds.
+-- 500000 bindings consumed 0.421718 seconds.
+ 
