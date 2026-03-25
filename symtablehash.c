@@ -177,10 +177,12 @@ int SymTable_put(SymTable_T oSymTable,
         psNewNode->pvItem = pvValue;
         psNewNode->pcName = pcKeyCopy;
         psNewNode->psNextNode = NULL;
+        /* comment out if no expansion wanted */
+        /*
         if (oSymTable->SymTableLength > oSymTable->bucketCount) {
             size_t oldBucketCount = oSymTable->bucketCount;
             /* sets bucketCount to the next value in the bucketCount
-               array unless it is the last index */
+               array unless it is the last index */ /*
             for (i = 0; i < BUCKET_COUNT_SIZE - 1; i++) {
                 if (oSymTable->bucketCount == bucketCounts[i]) {
                     oSymTable->bucketCount = bucketCounts[i + 1];
@@ -188,11 +190,12 @@ int SymTable_put(SymTable_T oSymTable,
                 }
             }
             /* just for efficiency, won't run if bucket count
-               was 65521 before and didn't change */
+               was 65521 before and didn't change */ /*
             if (oSymTable->bucketCount != oldBucketCount) {
                 SymTable_expand(oSymTable, oldBucketCount);
             }
         }
+        */
         hash = SymTable_hash(pcKeyCopy, oSymTable->bucketCount);
         for (psCurrentNode = oSymTable->symTable[hash]; psCurrentNode
             != NULL; psCurrentNode = psCurrentNode->psNextNode) {
