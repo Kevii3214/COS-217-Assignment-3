@@ -62,11 +62,10 @@ in practice.
 will help your grader to grade it in the most favorable light? In
 particular, what bugs are in your submission?
 
-I ran the 50000 test on the linked list implementation twice and it
-gave me Killed both times
-
-Also, I had to create 2 helper functions for hash implementatin of
+I had to create 2 helper functions for hash implementatin of
 SymTable_put because of critTer warnings
+
+No bugs (hopefully)
 
 ------------------------------------------------------------------------
 What warnings does splint generate on symtablelist.c, and what are your
@@ -148,7 +147,7 @@ The linked list implementation with:
 -- 500 bindings consumed 0.000000 seconds.
 -- 5000 bindings consumed 0.154553 seconds.
 -- 50000 bindings consumed 23.378892 seconds.
--- 500000 bindings consumed Killed seconds.
+-- 500000 bindings consumed more than 5 minutes.
 
 The non-expanding hash table implementation with:
 -- 50 bindings consumed 0.000000 seconds.
