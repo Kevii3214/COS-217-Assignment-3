@@ -98,6 +98,8 @@ size_t SymTable_getLength(SymTable_T oSymTable) {
 static void SymTable_appendNode(struct SymTableNode *psHead,
     struct SymTableNode *psNewNode) {
     struct SymTableNode *psCurrentNode;
+    assert(psHead != NULL);
+    assert(psNewNode != NULL);
     for (psCurrentNode = psHead; psCurrentNode->psNextNode != NULL;
          psCurrentNode = psCurrentNode->psNextNode) {
     }
